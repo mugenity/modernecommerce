@@ -69,3 +69,22 @@ export const handleDeleteProduct = (documentID) => {
       });
   });
 };
+
+export const handleFetchProduct = (productID) => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection("products")
+      .doc(productID)
+      .get()
+      .then((snapshot) => {
+        if (snapshot.exists) {
+          resolve(
+            snapshot.data() //will give me the data of the snapshot
+          );
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};

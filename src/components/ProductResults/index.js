@@ -93,10 +93,7 @@ const ProductResults = ({}) => {
             return null;
 
           const configProduct = {
-            productThumbnail,
-            productName,
-            productPrice,
-            productCategory,
+            ...product,
           };
 
           return <Product {...configProduct} />;
