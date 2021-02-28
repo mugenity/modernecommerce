@@ -1,14 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Button from "./../../Forms/Button";
+import { useDispatch } from "react-redux";
+import { addProduct } from "./../../../redux/Cart/cart.actions";
 
-const Product = ({
-  documentID,
-  productThumbnail,
-  productName,
-  productPrice,
-  productCategory,
-}) => {
+const Product = (product) => {
+  const dispatch = useDispatch();
+  const {
+    documentID,
+    productThumbnail,
+    productName,
+    productPrice,
+    productCategory,
+  } = product;
+
   if (
     !documentID ||
     !productThumbnail ||
@@ -20,6 +25,11 @@ const Product = ({
 
   const configAddToCartBtn = {
     type: "button",
+  };
+
+  const handleAddToCart = (product) => {
+    if (!product) return;
+    dispatch(addProduct(product));
   };
 
   return (
@@ -42,7 +52,12 @@ const Product = ({
             <span className="price">$ {productPrice}</span>
           </li>
           <li>
-            <Button {...configAddToCartBtn}>Add to cart</Button>
+            <Button
+              {...configAddToCartBtn}
+              onClick={() => handleAddToCart(product)}
+            >
+              Add to cart
+            </Button>
           </li>
         </ul>
       </div>
